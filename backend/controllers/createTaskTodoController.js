@@ -8,13 +8,14 @@ const createTodoController = async (req, res) => {
     try {
         
         //get todo id using params
-        const todoId = req.params.todoId
+        // const todoId = req.params.todoId
+        const { id, task } = req.body;
 
         //find to using findById
-        const todo = await Todo.findById(todoId)
+        const todo = await Todo.findById(todoId).exec();
 
         //take the input from user
-        const task = req.body.task
+        // const task = req.body.task
 
         console.log("task", task)
         //push the input taken from user into task array

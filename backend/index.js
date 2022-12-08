@@ -3,7 +3,7 @@ require('dotenv').config()
 require("./config/Database").connect()
 const express = require('express')
 const app = express()
-const port = 4000
+const port = 3002
 
 const createTodo = require('./controllers/createTodoController')
 const getTodos = require('./controllers/getTodosController')
@@ -13,7 +13,10 @@ const updateTodo = require('./controllers/updateTodoController')
 const createTaskTodo = require('./controllers/createTaskTodoController') 
 const deteleTask = require('./controllers/deleteTaskController') 
 const editTask = require('./controllers/updateTaskController') 
+const  searchController = require("./controllers/searchController");
 
+
+// const search = express.Router();
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -47,6 +50,10 @@ app.delete('/deleteTask/',deteleTask )
 
 //edit task
 app.put('/editTask/',editTask )
+
+// app.get("/", searchController);
+
+app.get("/search", searchController);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
