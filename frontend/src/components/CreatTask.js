@@ -49,7 +49,7 @@ const CreatTask = () => {
       <div className="container px-5 py-8 mx-auto">
         <div className="flex flex-col text-center w-full mb-6">
           <h1 className="sm:text-3xl text-2xl font-medium title-font text-gray-900">
-            Create User
+            Create Todo
           </h1>
         </div>
         <div className="lg:w-1/2 md:w-2/3 mx-auto">
