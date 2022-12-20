@@ -3,6 +3,7 @@ import axios from 'axios'
 
 function ListTodo() {
     const [todos, setTodos] = useState(null)
+    const [show, setShow] = useState(false);
 
     const fetchTodos = async () => {
         const resp = await axios.get('/getTodos')
@@ -14,6 +15,21 @@ function ListTodo() {
     }
 
 
+    const getTodo = async (e) => {
+        let id = e.target
+        let _id = id.parentElement.id 
+        // console.log()
+        const todo = await axios.get(`/getTodo/${_id}`)
+        setShow(todo)
+      
+        console.log(todo)
+    }
+
+
+
+
+
+    
 
     useEffect(() => {
         fetchTodos()
@@ -29,15 +45,16 @@ function ListTodo() {
 
                             {
                                 todos && todos.map((task) => (
-                                    <div>
-                                        <div className="text-left p-2 bg-white mb-2">{task.title}</div>
+                                    <div id={task._id}>
+                                        <div className="text-left p-2 bg-white mb-2"  onClick={(e) => getTodo(e)}>{task.title}</div>
 
 
-                                        <div className='divide-y'>
-{todos.map((task) => (
-    <div>{task.task}</div>
-))
-}
+                                        <div  className="">
+                                            {show.map((ele) => (
+                                                console.log("ele", ele)
+                                                
+                                            ))
+                                            }
                                         </div>
                                     </div>
 
