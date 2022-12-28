@@ -153,8 +153,8 @@ const Navbar = () => {
           </nav>
         </header>
 
-        <CreatTask />
-        <ListTodo />
+        {/* <CreatTask />
+        <ListTodo /> */}
       </div>
     </div>
   );
