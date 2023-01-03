@@ -20,7 +20,7 @@ return (
     <Route path="/signup" element = {<Register  BASE_URL={BASE_URL} />}/>
     <Route path="/Home" element = {<Home/>}/>
     </Routes>
-    </BrowserRouter>
+  </BrowserRouter>
 );
 }
 
