@@ -20,14 +20,12 @@ function Todo({fetchUserTodos, BASE_URL}) {
 
         };
 
+        console.log(data)
         const resp = await axios.post(`${BASE_URL}api/createTodo/`, data)
         console.log(resp);
         setTitle("");
         fetchUserTodos();
-        sessionStorage.setItem("token", resp.data.token);
-        if(resp.status === 400 || resp.status === 401){
-            alert("Invalid Crenditals!")
-           }
+        
     } catch (error) {
         console.log(error);
             // alert("Invalid Credentials!")
