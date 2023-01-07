@@ -1,8 +1,8 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaPlus } from 'react-icons/fa';
 import Todo from './Todo';
 import axios from 'axios';
-import TodoLists from './ListTodo'
+import ListTodo from './ListTodo'
 
 
 function Hero() {
@@ -10,62 +10,59 @@ function Hero() {
     // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     const BASE_URL = "https://todo-backend-production-2594.up.railway.app/";
 
-    const [showTodo,setShowTodo] = useState(false)
-    const [userTodos, setUserTodos] = useState(null);
+    const [showTodo, setShowTodo] = useState(false)
+    const [userTodos, setUserTodos] = useState("");
 
     const fetchUserTodos = async () => {
 
-        try {
-            const resp = await axios.get(`${BASE_URL}api/getTodos`,{ headers: {"Authorization" : `Bearer ${token}`} } )
-        console.log(resp)
+        const resp = await axios.get(`${BASE_URL}api/getTodos`, { headers: { "Authorization": `Bearer ${token}` } })
+        console.log("get all todos",resp)
         console.log(resp.data.token)
+        if (resp.data.todos.length > 0) {
+            setUserTodos(resp.data.todos);
 
-        sessionStorage.getItem("token", resp.data.token);
-        } catch (error) {
-            console.log(error.response.data.message)
         }
-        
-
-       
-        
     }
 
-    useEffect(()=>{
+
+    useEffect(() => {
 
         fetchUserTodos()
         return
-      
-      
-      }, []);
 
 
-    function handleAdd(){
+    }, []);
+
+
+
+    function handleAdd() {
         setShowTodo(true)
         console.log("clicked")
     }
 
 
     return (
-        <>    
-        <div className='container py-9 pl-12'>
-            <div className='heading-div text-xl font-black'>
-              Today <span className="text-sm font-normal">Sun 1 Jan</span>
-            </div>
-            <div className="add-task-div mt-10 ">
-                <div className="flex justify-start align-center">
-                <FaPlus className='text-xl'  onClick={handleAdd}/> <div className="ml-2">Add Task</div>
-
-                {
-                    showTodo?<Todo fetchUserTodos={fetchUserTodos} BASE_URL={BASE_URL}/>:null
-                }
-                
+        <>
+            <div className='container py-9 pl-12'>
+                <div className='heading-div text-xl font-black'>
+                    Today <span className="text-sm font-normal">Sun 1 Jan</span>
                 </div>
+                <div className="add-task-div mt-10 ">
+                    <div className="flex justify-start align-center">
+                        <FaPlus className='text-xl' onClick={handleAdd} /> <div className="ml-2">Add Task</div>
 
-                <div>
-                <TodoLists fetchUserTodos={fetchUserTodos} setUserTodos ={setUserTodos} userTodos={userTodos} BASE_URL={BASE_URL} />
+                        {
+                            showTodo ? <Todo fetchUserTodos={fetchUserTodos} BASE_URL={BASE_URL} setShowTodo={setShowTodo} /> : null
+                        }
+
+                    </div>
+
+                    <div className="list-todos">
+                        <ListTodo fetchUserTodos={fetchUserTodos} setUserTodos={setUserTodos} userTodos={userTodos} BASE_URL={BASE_URL} />
+
+                    </div>
                 </div>
             </div>
-        </div>
         </>
 
     )

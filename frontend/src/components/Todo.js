@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react'
 
 
-function Todo({fetchUserTodos, BASE_URL}) {
+function Todo({fetchUserTodos, BASE_URL,setShowTodo}) {
 
     const [title, setTitle] = useState("")
     const token = sessionStorage.getItem("token");
@@ -16,18 +16,20 @@ function Todo({fetchUserTodos, BASE_URL}) {
     try {
         e.preventDefault();  
         const data = {
-            Title: title
+         title
 
         };
 
-        console.log(data)
+        // console.log(data)
         const resp = await axios.post(`${BASE_URL}api/createTodo/`, data)
-        console.log(resp);
+        console.log("todo created",resp);
         setTitle("");
         fetchUserTodos();
+        setShowTodo(false)
         
     } catch (error) {
         console.log(error);
+        console.log("error in todo component")
             // alert("Invalid Credentials!")
     }
     
